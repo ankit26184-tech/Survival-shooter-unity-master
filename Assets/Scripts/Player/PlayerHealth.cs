@@ -22,7 +22,7 @@ public class PlayerHealth : MonoBehaviour
     bool damaged;
     int currentHealth;
 
-    public int CurrentHealth { get { return currentHealth; } }
+    public int CurrentHealth { get { return currentHealth; } set { currentHealth = value; } }
 
     void Awake ()
     {

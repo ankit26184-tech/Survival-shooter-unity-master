@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -6,7 +7,7 @@ public class EnemyManager : MonoBehaviour
     public GameObject enemy;
     public float spawnTime = 3f;
     public Transform[] spawnPoints;
-
+    public Action<GameObject> enemyCreatedCallback;
 
     void Start ()
     {
@@ -21,8 +22,14 @@ public class EnemyManager : MonoBehaviour
             return;
         }
 
-        int spawnPointIndex = Random.Range (0, spawnPoints.Length);
+        int spawnPointIndex = UnityEngine.Random.Range (0, spawnPoints.Length);
 
-        Instantiate (enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+        Spawn(spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+    }
+
+    public void Spawn(Vector3 position, Quaternion rotation)
+    {
+        GameObject go =Instantiate(enemy, position, rotation);
+        enemyCreatedCallback?.Invoke(go);
     }
 }

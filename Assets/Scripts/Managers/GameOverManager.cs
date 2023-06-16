@@ -2,6 +2,7 @@
 
 public class GameOverManager : MonoBehaviour
 {
+    [SerializeField] private GameStateManager gameStateManager;
     public PlayerHealth playerHealth;
 
 
@@ -18,6 +19,7 @@ public class GameOverManager : MonoBehaviour
     {
         if (playerHealth.CurrentHealth <= 0)
         {
+            gameStateManager.ClearGameData();
             anim.SetTrigger("GameOver");
         }
     }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class EnemyHealth : MonoBehaviour
     int currentHealth;
 
     public int CurrentHealth { get { return currentHealth; } }
+    public Action<GameObject> destroyCallback;
 
     void Awake ()
     {
@@ -75,5 +77,10 @@ public class EnemyHealth : MonoBehaviour
         isSinking = true;
         ScoreManager.score += scoreValue;
         Destroy (gameObject, 2f);
+    }
+
+    private void OnDestroy()
+    {
+        destroyCallback?.Invoke(gameObject);
     }
 }
